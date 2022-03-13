@@ -1,17 +1,11 @@
 import Case from "../Case/Case"
 import './Grid.css'
 
-export default () => {
+export default ({ children}) => {
+
   return (
     <div className='Grid'>
-        <Case />
-        <Case />
-        <Case />
-        <Case />
-        <Case />
-        <Case />
-        <Case />
-        <Case />
+      { children }
     </div>
   )
 }
