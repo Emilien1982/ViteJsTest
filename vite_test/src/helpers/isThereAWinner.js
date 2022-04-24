@@ -12,14 +12,13 @@ const winningCombinaisons = [
 export default (grid, playedSign) => {
   // check if there is less than 2 playedSign: return false
   if (grid.filter(item => item === playedSign).length < 3) return false
-  console.log('Search Winner')
   // check every winning combinaison with playedSign:
   for (let i= 0; i < winningCombinaisons.length; i++){
     const playedSignCount = winningCombinaisons[i]
       .map(gridIndex => grid[gridIndex])
       .filter(sign => sign === playedSign)
       .length
-    console.log({i, playedSign, playedSignCount})
+    // console.log({i, playedSign, playedSignCount})
     if (playedSignCount === 3) return true;
   }
   if (grid.includes(null)) return false;

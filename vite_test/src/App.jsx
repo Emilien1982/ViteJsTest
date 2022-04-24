@@ -4,21 +4,30 @@ import Case from './components/Case/Case'
 import isThereAWinner from './helpers/isThereAWinner'
 import './App.css'
 
+const emptyGrid = [null, null, null, null, null, null, null, null, null];
+
 function App() {
   const [isPlayer1, setIsPlayer1] = useState(true)
-  const [grid, setGrid] = 
-    useState([null, null, null, null, null, null, null, null, null])
+  const [grid, setGrid] = useState(emptyGrid)
+  const [gameContinue, setGameContinue] = useState(true)
   
   const handleClick = (index) => {
     const onClick = () => {
+      if (!gameContinue) return;
       if (grid[index]) return;
       const newGrid = [...grid];
       newGrid[index] = isPlayer1 ? 'X' : 'O'
-      setGrid(newGrid)
-      console.log('WINNER?: ', isThereAWinner(newGrid, isPlayer1 ? 'X' : 'O'))
-      setIsPlayer1(!isPlayer1)
+      setGrid(newGrid);
+      setGameContinue(!isThereAWinner(newGrid, isPlayer1 ? 'X' : 'O'));
+      setIsPlayer1(player => !player);
     }
     return onClick;
+  }
+
+  const handleReset = () => {
+    setIsPlayer1(true);
+    setGrid(emptyGrid);
+    setGameContinue(true);
   }
 
   return (
@@ -34,6 +43,9 @@ function App() {
           />
         )}
       </Grid>
+      <button type='button' onClick={handleReset} >
+        Reset
+      </button>
     </div>
   )
 }
